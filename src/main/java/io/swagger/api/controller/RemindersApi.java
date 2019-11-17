@@ -3,7 +3,7 @@
  * https://github.com/swagger-api/swagger-codegen
  * Do not edit the class manually.
  */
-package io.swagger.api;
+package io.swagger.api.controller;
 
 import io.swagger.model.InlineResponse200;
 import io.swagger.model.Reminder;

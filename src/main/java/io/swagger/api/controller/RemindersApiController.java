@@ -1,9 +1,13 @@
-package io.swagger.api;
+package io.swagger.api.controller;
 
 import io.swagger.model.InlineResponse200;
 import io.swagger.model.Reminder;
+import io.swagger.model.Reminder.TypeEnum;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.api.service.RemindersApiService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +63,12 @@ public class RemindersApiController implements RemindersApi {
 
     public ResponseEntity<Void> cancelReminder(@ApiParam(value = "ID del recordatorio a cancelar",required=true) @PathVariable("reminderId") Long reminderId) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+        	remindersApiService.cancelReminder(reminderId);
+        	return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
 
     public ResponseEntity<Reminder> getReminderById(@ApiParam(value = "ID del recordatorio",required=true) @PathVariable("reminderId") Long reminderId) {
@@ -80,7 +89,7 @@ public class RemindersApiController implements RemindersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<Reminder>>(remindersApiService.getReminderByType(reminderType), HttpStatus.OK);
+                return new ResponseEntity<List<Reminder>>(remindersApiService.getReminderByType(TypeEnum.fromValue(reminderType)), HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<Reminder>>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -106,7 +115,13 @@ public class RemindersApiController implements RemindersApi {
 
     public ResponseEntity<Void> updateReminder(@ApiParam(value = "Información con la que se va a actualizar el recordatorio" ,required=true )  @Valid @RequestBody Reminder body,@ApiParam(value = "ID del recordatorio a modificar",required=true) @PathVariable("reminderId") Long reminderId) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        try{
+        	remindersApiService.updateReminder(reminderId, body);
+        	return new ResponseEntity<Void>(HttpStatus.OK);
+        }
+        catch(Exception e) {
+        	return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

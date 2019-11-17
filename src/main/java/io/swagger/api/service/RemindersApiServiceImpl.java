@@ -1,11 +1,13 @@
-package io.swagger.api;
+package io.swagger.api.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.swagger.api.dao.RemindersApiDao;
 import io.swagger.model.Reminder;
+import io.swagger.model.Reminder.TypeEnum;
 
 @Service("remindersApiService")
 public class RemindersApiServiceImpl implements RemindersApiService{
@@ -15,18 +17,18 @@ public class RemindersApiServiceImpl implements RemindersApiService{
 	
 	@Override
 	public void addReminder(Reminder reminder) {
-		remindersApiDao.addReminder(reminder);
+		remindersApiDao.save(reminder);
 		
 	}
 
 	@Override
 	public List<Reminder> getReminders() {
-		return remindersApiDao.getReminders();
+		return (List<Reminder>) remindersApiDao.findAll();
 	}
 
 	@Override
 	public void cancelReminder(long id) {
-		remindersApiDao.cancelReminder(id);
+		remindersApiDao.delete(new Reminder().id(id));
 		
 	}
 
@@ -36,8 +38,14 @@ public class RemindersApiServiceImpl implements RemindersApiService{
 	}
 
 	@Override
-	public List<Reminder> getReminderByType(String type) {
+	public List<Reminder> getReminderByType(TypeEnum type) {
 		return remindersApiDao.getReminderByType(type);
+	}
+	
+	@Override
+	public void updateReminder(long reminderId, Reminder reminder) {
+		reminder.setId(reminderId);
+		remindersApiDao.save(reminder);
 	}
 
 }

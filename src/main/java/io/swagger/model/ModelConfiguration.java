@@ -1,19 +1,26 @@
 package io.swagger.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ModelConfiguration
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-11-16T21:07:28.234Z[GMT]")
+@Entity
+@Table(name = "ModelConfiguration")
 public class ModelConfiguration   {
   @JsonProperty("maxReminders")
   private Integer maxReminders = 4;
@@ -33,6 +40,9 @@ public class ModelConfiguration   {
     public Integer getMaxReminders() {
     return maxReminders;
   }
+  @Id
+  @GeneratedValue
+  private Integer version;
 
   public void setMaxReminders(Integer maxReminders) {
     this.maxReminders = maxReminders;

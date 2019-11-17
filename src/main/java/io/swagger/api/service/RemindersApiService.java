@@ -1,10 +1,9 @@
-package io.swagger.api;
+package io.swagger.api.service;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-
 import io.swagger.model.Reminder;
+import io.swagger.model.Reminder.TypeEnum;
 
 public interface RemindersApiService {
 	public void addReminder(Reminder reminder);
@@ -15,5 +14,7 @@ public interface RemindersApiService {
 	
 	public Reminder getReminderById(long id);
 	
-	public List<Reminder> getReminderByType(String type);
+	public List<Reminder> getReminderByType(TypeEnum type);
+
+	void updateReminder(long reminderId, Reminder reminder);
 }
