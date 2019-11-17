@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,12 +17,14 @@ public class RemindersApiDaoImpl implements RemindersApiDao{
 	@Override
 	public void addReminder(Reminder reminder) {
 		List<Reminder> reminderList = reminderMap.get(reminder.getType().name());
+		List<Reminder> list = new ArrayList<>(); 
 		if(reminderList != null) {
-			reminderList.add(reminder);
+			list.add(reminder);
+			list = new ArrayList<>(reminderList); 
 		}else {
-			reminderList = Arrays.asList(reminder);
+			list = Arrays.asList(reminder);
 		}
-		reminderMap.put(reminder.getType().name(), reminderList);
+		reminderMap.put(reminder.getType().name(), list);
 
 	}
 
@@ -38,7 +39,8 @@ public class RemindersApiDaoImpl implements RemindersApiDao{
 	@Override
 	public void cancelReminder(long id) {
 		reminderMap.values().forEach(list -> list.forEach(
-				element -> {if(removeFromList(list, element)) {
+				element -> {List<Reminder> newList = removeFromList(list, element);
+					if(newList != null) {
 					reminderMap.put(element.getType().toString(), list);
 				}
 				return;
@@ -64,14 +66,15 @@ public class RemindersApiDaoImpl implements RemindersApiDao{
 	}
 
 
-	private boolean removeFromList(List<Reminder> list, Reminder reminder){
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getId() == reminder.getId()) {
-				list.remove(i);
-				return true;
+	private List<Reminder> removeFromList(List<Reminder> list, Reminder reminder){
+		List<Reminder> newList = new ArrayList<>(list); 
+		for(int i = 0; i < newList.size(); i++) {
+			if(newList.get(i).getId() == reminder.getId()) {
+				newList.remove(i);
+				return newList;
 			}
 		}
-		return false;
+		return null;
 	}
 
 
