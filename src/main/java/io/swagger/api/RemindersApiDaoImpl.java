@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.swagger.model.Reminder;
+import org.springframework.stereotype.Repository;
 
+import io.swagger.model.Reminder;
+@Repository(("remindersApiDao"))
 public class RemindersApiDaoImpl implements RemindersApiDao{
 
 	Map<String, List<Reminder>> reminderMap = new HashMap<>();
-	
+
 	@Override
 	public void addReminder(Reminder reminder) {
 		List<Reminder> reminderList = reminderMap.get(reminder.getType().name());
@@ -21,15 +23,15 @@ public class RemindersApiDaoImpl implements RemindersApiDao{
 			reminderList = Arrays.asList(reminder);
 		}
 		reminderMap.put(reminder.getType().name(), reminderList);
-		
+
 	}
 
-	@Override	
+	@Override
 	public List<Reminder> getReminders() {
 		List<Reminder> result = new ArrayList<>();
 		List<List<Reminder>> reminderLists = new ArrayList<>(reminderMap.values());
 		reminderLists.forEach(list -> result.addAll(list));
 		return result;
 	}
-	
+
 }

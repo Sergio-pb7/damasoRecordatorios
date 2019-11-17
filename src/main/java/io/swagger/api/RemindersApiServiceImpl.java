@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import io.swagger.model.Reminder;
 
-@Service
+@Service("remindersApiService")
 public class RemindersApiServiceImpl implements RemindersApiService{
 
 	@Autowired
