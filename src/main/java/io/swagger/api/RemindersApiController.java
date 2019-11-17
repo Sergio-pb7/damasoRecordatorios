@@ -66,8 +66,8 @@ public class RemindersApiController implements RemindersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<Reminder>(objectMapper.readValue("{\n  \"date\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"id\" : 124132,\n  \"type\" : \"food\",\n  \"complete\" : false\n}", Reminder.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+                return new ResponseEntity<Reminder>(remindersApiService.getReminderById(reminderId), HttpStatus.OK);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<Reminder>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -80,8 +80,8 @@ public class RemindersApiController implements RemindersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<Reminder>>(objectMapper.readValue("[ {\n  \"date\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"id\" : 124132,\n  \"type\" : \"food\",\n  \"complete\" : false\n}, {\n  \"date\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"id\" : 124132,\n  \"type\" : \"food\",\n  \"complete\" : false\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+                return new ResponseEntity<List<Reminder>>(remindersApiService.getReminderByType(reminderType), HttpStatus.OK);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<Reminder>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }

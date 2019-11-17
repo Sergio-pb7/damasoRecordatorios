@@ -24,4 +24,20 @@ public class RemindersApiServiceImpl implements RemindersApiService{
 		return remindersApiDao.getReminders();
 	}
 
+	@Override
+	public void cancelReminder(long id) {
+		remindersApiDao.cancelReminder(id);
+		
+	}
+
+	@Override
+	public Reminder getReminderById(long id) {
+		return remindersApiDao.getReminderById(id);
+	}
+
+	@Override
+	public List<Reminder> getReminderByType(String type) {
+		return remindersApiDao.getReminderByType(type);
+	}
+
 }
