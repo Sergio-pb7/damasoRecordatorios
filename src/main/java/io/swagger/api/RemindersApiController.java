@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,9 @@ public class RemindersApiController implements RemindersApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+    
+    @Autowired
+    private RemindersApiService remindersApiService;
 
     @org.springframework.beans.factory.annotation.Autowired
     public RemindersApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -42,7 +46,8 @@ public class RemindersApiController implements RemindersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<InlineResponse200>(objectMapper.readValue("{\n  \"id\" : 0\n}", InlineResponse200.class), HttpStatus.NOT_IMPLEMENTED);
+            	remindersApiService.addReminder(body);
+                return new ResponseEntity<InlineResponse200>(objectMapper.readValue("{\n  \"id\" : " + body.getId() + "\n}", InlineResponse200.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<InlineResponse200>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -89,8 +94,8 @@ public class RemindersApiController implements RemindersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<Reminder>>(objectMapper.readValue("[ {\n  \"date\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"id\" : 124132,\n  \"type\" : \"food\",\n  \"complete\" : false\n}, {\n  \"date\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"id\" : 124132,\n  \"type\" : \"food\",\n  \"complete\" : false\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+                return new ResponseEntity<List<Reminder>>(remindersApiService.getReminders(), HttpStatus.OK);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<Reminder>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
