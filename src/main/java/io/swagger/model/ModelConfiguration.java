@@ -40,14 +40,18 @@ public class ModelConfiguration   {
     public Integer getMaxReminders() {
     return maxReminders;
   }
-  @Id
-  @GeneratedValue
-  private Integer version;
 
   public void setMaxReminders(Integer maxReminders) {
     this.maxReminders = maxReminders;
   }
 
+  @Id
+  @GeneratedValue
+  private Integer version;
+  
+  public void setVersion(Integer version) {
+	    this.version = version;
+	  }
 
   @Override
   public boolean equals(java.lang.Object o) {
