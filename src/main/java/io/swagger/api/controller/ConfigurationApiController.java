@@ -48,7 +48,7 @@ public class ConfigurationApiController implements ConfigurationApi {
             }
         }
 
-        return new ResponseEntity<ModelConfiguration>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<ModelConfiguration>(HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<Void> updateConf(@ApiParam(value = "Nueva configuración" ,required=true )  @Valid @RequestBody ModelConfiguration body) {

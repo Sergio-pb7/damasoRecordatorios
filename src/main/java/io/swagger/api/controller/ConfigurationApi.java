@@ -42,7 +42,7 @@ public interface ConfigurationApi {
         @ApiResponse(code = 405, message = "Entrada inválida") })
     @RequestMapping(value = "/configuration",
         consumes = { "application/json" },
-        method = RequestMethod.PUT)
+        method = RequestMethod.POST)
     ResponseEntity<Void> updateConf(@ApiParam(value = "Nueva configuración" ,required=true )  @Valid @RequestBody ModelConfiguration body);
 
 }

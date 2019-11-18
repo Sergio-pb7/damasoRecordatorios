@@ -58,7 +58,7 @@ public class RemindersApiController implements RemindersApi {
             }
         }
 
-        return new ResponseEntity<InlineResponse200>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<InlineResponse200>(HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<Void> cancelReminder(@ApiParam(value = "ID del recordatorio a cancelar",required=true) @PathVariable("reminderId") Long reminderId) {
@@ -82,7 +82,7 @@ public class RemindersApiController implements RemindersApi {
             }
         }
 
-        return new ResponseEntity<Reminder>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<Reminder>(HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<List<Reminder>> getReminderByType(@ApiParam(value = "tipo del recordatorio",required=true, allowableValues="medicine, food, inactivity") @PathVariable("reminderType") String reminderType) {
@@ -96,7 +96,7 @@ public class RemindersApiController implements RemindersApi {
             }
         }
 
-        return new ResponseEntity<List<Reminder>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<List<Reminder>>(HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<List<Reminder>> getReminders() {
@@ -110,7 +110,7 @@ public class RemindersApiController implements RemindersApi {
             }
         }
 
-        return new ResponseEntity<List<Reminder>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<List<Reminder>>(HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<Void> updateReminder(@ApiParam(value = "Información con la que se va a actualizar el recordatorio" ,required=true )  @Valid @RequestBody Reminder body,@ApiParam(value = "ID del recordatorio a modificar",required=true) @PathVariable("reminderId") Long reminderId) {
