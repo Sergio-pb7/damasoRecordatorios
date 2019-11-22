@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -28,8 +29,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Table(name = "Reminder")
 public class Reminder   {
 	@Id
-	@JsonProperty("id")
-	private Long id = null;
+	@GeneratedValue
+	private Long id;
 
 	/**
 	 * Tipo de recordatorio
@@ -84,15 +85,8 @@ public class Reminder   {
 	 * ID del recordatorio
 	 * @return id
 	 **/
-	@ApiModelProperty(example = "124132", required = true, value = "ID del recordatorio")
-	@NotNull
-
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Reminder type(TypeEnum type) {
