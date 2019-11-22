@@ -16,9 +16,8 @@ public class RemindersApiServiceImpl implements RemindersApiService{
 	private RemindersApiDao remindersApiDao;
 	
 	@Override
-	public Long addReminder(Reminder reminder) {
+	public void addReminder(Reminder reminder) {
 		remindersApiDao.save(reminder);
-		return reminder.getId();
 		
 	}
 
@@ -45,7 +44,6 @@ public class RemindersApiServiceImpl implements RemindersApiService{
 	
 	@Override
 	public void updateReminder(long reminderId, Reminder reminder) {
-		reminder = reminder.id(reminderId);
 		remindersApiDao.save(reminder);
 	}
 
