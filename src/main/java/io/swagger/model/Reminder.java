@@ -85,6 +85,8 @@ public class Reminder   {
 	 * ID del recordatorio
 	 * @return id
 	 **/
+	@ApiModelProperty(example = "124132", required = true, value = "ID del recordatorio")
+	@NotNull
 	public Long getId() {
 		return id;
 	}

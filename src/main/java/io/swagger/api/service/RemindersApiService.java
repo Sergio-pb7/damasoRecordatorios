@@ -6,7 +6,7 @@ import io.swagger.model.Reminder;
 import io.swagger.model.Reminder.TypeEnum;
 
 public interface RemindersApiService {
-	public void addReminder(Reminder reminder);
+	public Long addReminder(Reminder reminder);
 	
 	public List<Reminder> getReminders();
 	

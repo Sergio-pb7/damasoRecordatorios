@@ -50,8 +50,8 @@ public class RemindersApiController implements RemindersApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-            	remindersApiService.addReminder(body);
-                return new ResponseEntity<InlineResponse200>(objectMapper.readValue("{\n  \"id\" : " + body.getId() + "\n}", InlineResponse200.class), HttpStatus.OK);
+            	Long idResponse = remindersApiService.addReminder(body);
+                return new ResponseEntity<InlineResponse200>(objectMapper.readValue("{\n  \"id\" : " + idResponse + "\n}", InlineResponse200.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<InlineResponse200>(HttpStatus.INTERNAL_SERVER_ERROR);
