@@ -31,7 +31,7 @@ public class TimerMetric extends TimerTask {
         }
     };
      Timer timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask, 0, 60000); 
+        timer.scheduleAtFixedRate(timerTask, 0, 30000); 
   } catch (IOException e) {
    // TODO Auto-generated catch block
    e.printStackTrace();
