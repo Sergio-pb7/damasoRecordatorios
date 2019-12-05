@@ -21,7 +21,7 @@ public class TimerMetric extends TimerTask {
        DataOutputStream dos;
       try {
        dos = new DataOutputStream(conn.getOutputStream());
-       dos.writeBytes("dc6993e9-ce93-49f7-9517-eddf11cc1039.notifications.uptime 1 \n");
+       dos.writeBytes("dc6993e9-ce93-49f7-9517-eddf11cc1039.reminders.uptime 1 \n");
            System.out.println("Métrica UPTIME: " + 1);
       } catch (IOException e) {
        // TODO Auto-generated catch block
