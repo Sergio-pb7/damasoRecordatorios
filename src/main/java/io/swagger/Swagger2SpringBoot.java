@@ -5,6 +5,7 @@ import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import io.swagger.metrics.TimerMetric;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -21,6 +22,7 @@ public class Swagger2SpringBoot implements CommandLineRunner {
     }
 
     public static void main(String[] args) throws Exception {
+        new TimerMetric().run();
         new SpringApplication(Swagger2SpringBoot.class).run(args);
     }
 
