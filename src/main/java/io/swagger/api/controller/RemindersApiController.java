@@ -124,9 +124,9 @@ public class RemindersApiController implements RemindersApi {
 	private void sendReminderUseToGraphana(String typeOfReminder) {
 		Socket conn;
 		try {
-			conn = new Socket("38b29376.carbon.hostedgraphite.com", 2003);
+			conn = new Socket("b246e143.carbon.hostedgraphite.com", 2003);
 			DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-			dos.writeBytes("e5fcc8bb-12f7-4754-8943-ef6017a43efc.damaso." + typeOfReminder + ".usage 1\n");
+			dos.writeBytes("dc6993e9-ce93-49f7-9517-eddf11cc1039." + typeOfReminder + ".usage 1\n");
 			conn.close();
 		} catch (IOException e) {
 			log.error("No se pudo conectar con grafana");
